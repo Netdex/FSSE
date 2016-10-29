@@ -1,5 +1,3 @@
-#define TEST
-
 #include <iostream>
 #include <windows.h>
 #include <cstdio>
@@ -98,9 +96,6 @@ int WinMain(HINSTANCE hInstance,
             HINSTANCE hPrevInstance,
             LPTSTR lpCmdLine,
             int nCmdShow) {
-#ifndef TEST
-    FreeConsole();
-#endif
     // open folder with same name if it exists
     GetModuleFileName(NULL, assembly_path, MAX_PATH);
     strcpy(path_buf, assembly_path);
