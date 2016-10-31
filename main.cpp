@@ -117,7 +117,14 @@ int WinMain(HINSTANCE hInstance,
 #ifndef TEST
     GetStartupFolderPath(path_buf);
     strcat(path_buf, "\\fsse.exe");
-    CopyFile(assembly_path, path_buf, TRUE);
+    if(strcmp(path_buf, assembly_path) != 0) {
+        CopyFile(assembly_path, path_buf, TRUE);
+
+        ReleaseMutex(hHandle);
+        CloseHandle(hHandle);
+        ShellExecute(NULL, "open", path_buf, NULL, NULL, SW_SHOW);
+        exit(0);
+    }
 #endif
 
     while (true) {
