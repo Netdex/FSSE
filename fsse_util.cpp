@@ -1,6 +1,5 @@
 
 #include <shlobj.h>
-#include <tchar.h>
 #include "fsse_util.h"
 
 BOOL FileExists(LPCTSTR szPath) {

